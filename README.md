@@ -2,7 +2,7 @@
 
 Para baixar os dados com as versões do texto de uma proposição, deve-se seguir os passos abaixo.
 
-## 1. Baixar o R
+ ## 1. Baixar o R
 É necessário baixar o R para que os scripts sejam executados. [Aqui](https://www.digitalocean.com/community/tutorials/how-to-install-r-on-ubuntu-16-04-2) tem um tutorial para **instalar o R no Ubuntu 16.04**
 
 ## 2. Executar scripts
