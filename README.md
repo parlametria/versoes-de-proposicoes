@@ -2,8 +2,8 @@
 
 Para baixar os dados com as versões do texto de uma proposição, deve-se seguir os passos abaixo.
 
- ## 1. Baixar o R
-    É necessário baixar o R para que os scripts sejam executados. [Aqui](https://www.digitalocean.com/community/tutorials/how-to-install-r-on-ubuntu-16-04-2) tem um tutorial para **instalar o R no Ubuntu 16.04**
+## 1. Baixar o R
+É necessário baixar o R para que os scripts sejam executados. [Aqui](https://www.digitalocean.com/community/tutorials/how-to-install-r-on-ubuntu-16-04-2) tem um tutorial para **instalar o R no Ubuntu 16.04**
 
 ## 2. Executar scripts
 
@@ -33,3 +33,13 @@ Rscript fetcher.R -i <input_filepath> -o <output_filepath>
 Os argumentos a serem passados são os seguintes:
  * -i <input_filepath>: Caminho para o csv das proposições. O caminho default é `data/proposicoes.csv`;
  * -o <output_filepath>: Caminho para o csv de saída. O caminho default é `/data/versoes.csv`.
+
+ ## Os dados
+
+O arquivo de saída gerado pelo fetcher está em `data/versoes.csv` e possui as seguintes informações:
+ * `id_proposicao`: identificador da proposição em uma determinada casa;
+ * `casa`: casa do congresso (pode ser senado ou camara);
+ * `data`: data da versão;
+ * `descricao`: texto da tramitação sobre a versão;
+ * `link_inteiro_teor`: link para o arquivo em pdf do texto da proposição;
+ * `pagina_inicial`: número da página em que o texto de interesse começa.
