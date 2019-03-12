@@ -15,7 +15,7 @@ install_and_load_packages <- function(list_of_packages) {
   }
   
   suppressWarnings(suppressMessages(require("here", character.only = T)))
-  suppressWarnings(suppressMessages(source(here::here("crawler/utils/constants.R"))))
+  suppressWarnings(suppressMessages(source(here::here("utils/constants.R"))))
   
   print("Installing latest version of congresso and agora-digital...")
   suppressWarnings(suppressMessages(devtools::install_github(.RCONGRESSO_URL, force = TRUE)))

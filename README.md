@@ -9,10 +9,10 @@ Para baixar os dados com as versões do texto de uma proposição, deve-se segui
 
 ### 2.1. Instalador de pacotes
 
-Este script instala todos os pacotes necessários para a execução do fetcher. Estando no diretório `/utils`, execute a seguinte linha de comando:
+Este script instala todos os pacotes necessários para a execução do fetcher. Estando no diretório raiz do repositório, execute a seguinte linha de comando:
 
 ```
-Rscript installer.R
+Rscript utils/installer.R
 ```
 
 Ao fim da execução aparecerá uma mensagem indicando que a instação foi bem sucedida.
