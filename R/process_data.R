@@ -12,8 +12,8 @@ fetch_propositions_versions <- function(camara_id, senado_id) {
   if(!is.na(camara_id) & !is.na(senado_id)) {
     df <-
       agoradigital::extract_links_proposicao(id = camara_id, 
-                                             casa = .CAMARA) %>% 
-      rbind(agoradigital::extract_links_proposicao(id = senado_id,
+                                             casa = .CAMARA) %>%
+      dplyr::bind_rows(agoradigital::extract_links_proposicao(id = senado_id,
                                                    casa = .SENADO))
     
   } else if (!is.na(camara_id)) {
