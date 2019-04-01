@@ -9,6 +9,9 @@ library(dplyr)
 #' @examples 
 #' fetch_propositions_versions(46249, 41703)
 fetch_propositions_versions <- function(camara_id, senado_id) {
+  
+  print(paste0("Processando dados da proposição com id na câmara ", camara_id, " e no senado ", senado_id))
+  
   if(!is.na(camara_id) & !is.na(senado_id)) {
     df <-
       agoradigital::extract_links_proposicao(id = camara_id, 
