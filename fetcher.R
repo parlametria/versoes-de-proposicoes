@@ -12,9 +12,6 @@ load_packages <- function(list_of_packages) {
 get_args <- function() {
   args = commandArgs(trailingOnly=TRUE)
   
-  message(.README_MESSAGE)
-  message(.HELP_MESSAGE)
-  
   option_list = list(
     optparse::make_option(c("-i", "--input"), 
                 type="character", 
@@ -37,9 +34,13 @@ list_of_packages <- c("RCurl", "dplyr", "lubridate", "magrittr", "stats",
                        "stringr", "tibble", "tidyr", "utils", "devtools", 
                       "optparse", "here", "rcongresso", "agoradigital")
 
-load_packages(list_of_packages)
 
 suppressWarnings(suppressMessages(source(here::here("utils/constants.R"))))
+message(.README_MESSAGE)
+message(.HELP_MESSAGE)
+
+load_packages(list_of_packages)
+
 source(here::here("R/process_data.R"))
 
 args <- get_args()
