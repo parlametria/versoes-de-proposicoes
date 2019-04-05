@@ -4,7 +4,7 @@
 #' @description Load packages from list
 load_packages <- function(list_of_packages) {
   print("Loading packages..")
-  suppressWarnings(suppressMessages(lapply(list_of_packages, require, character.only=TRUE)))
+  suppressWarnings(suppressMessages(sapply(list_of_packages, require, character.only=TRUE)))
 }
 
 #' @title Get arguments from command line option parsing
