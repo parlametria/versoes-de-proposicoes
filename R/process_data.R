@@ -27,7 +27,8 @@ fetch_propositions_versions <- function(camara_id, senado_id) {
   }
   
   return(df %>%
-           dplyr::arrange(data))
+           dplyr::arrange(data) %>% 
+           dplyr::filter(!is.na(tipo_texto)))
 }
 
 #' @title Fetch data for all propositions
