@@ -17,8 +17,17 @@ python3 download_csv_prop.py ../../../versoes-de-proposicoes/versoes_leggo.csv .
 #Verifica se os pdfs baixados eram imagens
 python verifica_se_pdf_imagem.py ../../../versoes-de-proposicoes/emendas
 
+#Separa Justificacoes
+#Pasta com as emendas
+DIR_DATA="../../../versoes-de-proposicoes/emendas"
+
+for folder in $(ls $DIR_DATA/); do
+        echo $DIR_DATA/$folder/txt
+	python3 ../tools/SepararJustificacoes.py $DIR_DATA/$folder/txt ./justificacoes/
+done
+
 #Calcula todas as distancias para todas as props
-../../coherence/inter_emd_int/chama_inter_emd_int_para_todas_props.sh ../../../versoes-de-proposicoes/emendas/
+../../coherence/inter_emd_int/chama_inter_emd_int_para_todas_props.sh justificacoes/
 
 
 
