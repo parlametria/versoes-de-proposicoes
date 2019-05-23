@@ -5,6 +5,8 @@ Rscript utils/installer.R
 
 Rscript fetcher.R -i ../leggoR/data/tabela_geral_ids_casa.csv -o versoes_leggo.csv
 
+mkdir emendas
+
 #Entra na pasta data do leggo-content
 cd ../leggo-content/util/data/
 
