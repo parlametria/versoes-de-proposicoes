@@ -29,6 +29,11 @@ done
 #Calcula todas as distancias para todas as props
 ../../coherence/inter_emd_int/chama_inter_emd_int_para_todas_props.sh justificacoes/
 
+#Adicionar a coluna distancia a tabela de emendas do back
+cd ../../../leggoR
+
+Rscript scripts/write_emendas_dist.R ../leggo-content/util/data/jus_all_dist/ data/distancias/ ../leggo-backend/data/emendas.csv
+
 
 
 
