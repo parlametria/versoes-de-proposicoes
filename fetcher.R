@@ -18,6 +18,11 @@ get_args <- function() {
                 default=.INPUT_FILEPATH,
                 help=.HELP_INPUT_ARG, 
                 metavar="character"),
+    optparse::make_option(c("-e", "--emendas"), 
+                          type="character", 
+                          default=.INPUT_FILEPATH,
+                          help=.HELP_INPUT_ARG, 
+                          metavar="character"),
     optparse::make_option(c("-o", "--output"), 
                 type="character", 
                 default=.OUTPUT_FILEPATH,
@@ -49,6 +54,7 @@ print("Fetching data...")
 df <- fetch_data(args$input)
 
 print("Saving results...")
-save_data(df, args$output)
+emendas_raw <- readr::read_csv(args$emendas)
+save_data(df, emendas_raw, args$output)
 
 print("Successfully saved! :D")

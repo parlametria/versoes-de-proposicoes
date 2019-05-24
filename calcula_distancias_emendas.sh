@@ -3,7 +3,7 @@
 #Gera a tabela com os links para os arquivos dos textos e emendas
 Rscript utils/installer.R
 
-Rscript fetcher.R -i ../leggoR/data/tabela_geral_ids_casa.csv -o versoes_leggo.csv
+Rscript fetcher.R -i ../leggoR/data/tabela_geral_ids_casa.csv -e ../leggo-backend/data/emendas_raw.csv -o versoes_leggo.csv
 
 mkdir emendas
 
@@ -34,7 +34,7 @@ done
 #Adicionar a coluna distancia a tabela de emendas do back
 cd ../../../leggoR
 
-Rscript scripts/write_emendas_dist.R ../leggo-content/util/data/jus_all_dist/ data/distancias/ ../leggo-backend/data/emendas.csv
+Rscript scripts/update_emendas_dist.R  ../leggo-backend/data/emendas_raw.csv data/distancias/ ../leggo-backend/data/emendas.csv ../leggo-content/util/data/jus_all_dist/
 
 
 
