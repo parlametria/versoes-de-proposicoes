@@ -25,16 +25,16 @@ DIR_DATA="../../../versoes-de-proposicoes/emendas"
 
 for folder in $(ls $DIR_DATA/); do
         echo $DIR_DATA/$folder/txt
-	python3 ../tools/SepararJustificacoes.py $DIR_DATA/$folder/txt ./justificacoes/
+	python3 ../tools/SepararJustificacoes.py $DIR_DATA/$folder/txt ./emendas_sem_justificacoes/
 done
 
 #Calcula todas as distancias para todas as props
-../../coherence/inter_emd_int/chama_inter_emd_int_para_todas_props.sh justificacoes/
+../../coherence/inter_emd_int/chama_inter_emd_int_para_todas_props.sh emendas_sem_justificacoes/
 
 #Adicionar a coluna distancia a tabela de emendas do back
 cd ../../../leggoR
 
-Rscript scripts/update_emendas_dist.R  ../leggo-backend/data/emendas_raw.csv data/distancias/ ../leggo-backend/data/emendas.csv ../leggo-content/util/data/jus_all_dist/
+Rscript scripts/update_emendas_dist.R  ../leggo-backend/data/emendas_raw.csv data/distancias/ ../leggo-backend/data/emendas.csv ../leggo-content/util/data/emendas_all_dist/
 
 
 
