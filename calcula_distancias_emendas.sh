@@ -28,6 +28,8 @@ for folder in $(ls $DIR_DATA/); do
 	python3 ../tools/SepararJustificacoes.py $DIR_DATA/$folder/txt ./emendas_sem_justificacoes/
 done
 
+mkdir emendas_all_dist
+
 #Calcula todas as distancias para todas as props
 ../../coherence/inter_emd_int/chama_inter_emd_int_para_todas_props.sh emendas_sem_justificacoes/
 
