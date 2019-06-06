@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #Gera a tabela com os links para os arquivos dos textos e emendas
-Rscript fetcher.R -i ../leggoR/data/tabela_geral_ids_casa.csv -e ../leggo-backend/data/emendas_raw.csv -o versoes_leggo.csv -a avulso.csv
+Rscript fetcher.R -i ../leggoR/data/tabela_geral_ids_casa.csv -e ../leggo-backend/data/emendas_raw.csv -o novas_emendas.csv -a avulsos_iniciais.csv
 
 mkdir emendas
 
@@ -9,7 +9,7 @@ mkdir emendas
 cd ../leggo-content/util/data/
 
 #Download dos arquivos em pdf
-python3 download_csv_prop.py ../../../versoes-de-proposicoes/versoes_leggo.csv ../../../versoes-de-proposicoes/emendas/ ../../../versoes-de-proposicoes/avulso.csv
+python3 download_csv_prop.py ../../../versoes-de-proposicoes/novas_emendas.csv ../../../versoes-de-proposicoes/emendas/ ../../../versoes-de-proposicoes/avulsos_iniciais.csv
 
 #Converte de pdf para txt
 ./calibre_convert.sh ../../../versoes-de-proposicoes/emendas

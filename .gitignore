@@ -34,7 +34,7 @@ vignettes/*.pdf
 
 # Shiny token, see https://shiny.rstudio.com/articles/shinyapps.html
 rsconnect/
-avulso.csv
+avulsos_iniciais.csv
 emendas
 data
-versoes_leggo.csv
+novas_emendas.csv

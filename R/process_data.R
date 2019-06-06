@@ -35,8 +35,8 @@ fetch_propositions_versions <- function(camara_id, senado_id) {
 #' @description Fetch data for all propositions in Senado and Camara
 #' @param input_filepath Input filepath
 #' @examples
-#' fetch_data("data/proposicoes.csv")
-fetch_data <- function(input_filepath) {
+#' fetch_textos_proposicao("data/proposicoes.csv")
+fetch_textos_proposicao <- function(input_filepath) {
   propositions <- readr::read_csv(input_filepath, col_types = "iicc")
   df <- suppressMessages(suppressWarnings(
     purrr::map2_df(.x = propositions$id_camara,
@@ -46,16 +46,16 @@ fetch_data <- function(input_filepath) {
 
 #' @title Save dataframe
 #' @description Write dataframe in output_filepath
-#' @param df Tabela com as emendas e os links 
+#' @param emendas_df Tabela com as emendas e os links 
 #' @param emendas_raw Tabela com todas as emendas sem as distâncias
 #' @param output_filepath Output filepath
-save_new_data <- function(df, emendas_raw, output_filepath) {
+save_new_emendas <- function(emendas_df, emendas_raw, output_filepath) {
   emendas_raw <-
     emendas_raw %>% 
-    dplyr::mutate(codigo_emenda = as.character(codigo_emenda))
+    dplyr::mutate(id_emenda = as.character(codigo_emenda))
   
   novas_emendas <-
-    dplyr::anti_join(emendas_df, emendas_raw, by=c("codigo_texto" = "codigo_emenda")) %>% 
+    dplyr::anti_join(emendas_df, emendas_raw, by=c("codigo_texto" = "id_emenda")) %>% 
     readr::write_csv(output_filepath)
 }
 
