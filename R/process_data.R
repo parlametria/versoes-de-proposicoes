@@ -35,7 +35,7 @@ fetch_propositions_versions <- function(camara_id, senado_id) {
 #' @description Fetch data for all propositions in Senado and Camara
 #' @param input_filepath Input filepath
 #' @examples
-#' fetch_textos_proposicao("data/proposicoes.csv")
+#' fetch_textos_proposicao("data/tabela_geral_ids_casa.csv")
 fetch_textos_proposicao <- function(input_filepath) {
   propositions <- readr::read_csv(input_filepath, col_types = "iicc")
   df <- suppressMessages(suppressWarnings(

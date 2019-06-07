@@ -58,7 +58,8 @@ args <- get_args()
 print("Fetching data...")
 textos_proposicao_df <- fetch_textos_proposicao(args$input) 
 emendas_df <- textos_proposicao_df %>% 
-  filter(str_detect(tolower(tipo_texto), "emenda"))
+  filter(str_detect(tolower(tipo_texto), "emenda")) %>% 
+  filter(tolower(tipo_texto) != "avulso de emendas")
 textos_iniciais_materia_df <- textos_proposicao_df %>% 
   filter(str_detect(tolower(tipo_texto), "apresenta..o de proposi..o|avulso inicial da mat.ria"))
 
