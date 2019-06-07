@@ -41,7 +41,7 @@ else
     cd ../../../leggoR
 
     #Verifica se há distâncias
-    if [ $(ls ../leggo-content/util/data/emendas_all_dist/ | wc -l) -lt 2 ]
+    if [ $(ls ../leggo-content/util/data/emendas_all_dist/ | wc -l) -eq 0 ]
     then
         echo "Não há novas distâncias"
         exit 0
