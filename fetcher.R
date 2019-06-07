@@ -18,11 +18,21 @@ get_args <- function() {
                 default=.INPUT_FILEPATH,
                 help=.HELP_INPUT_ARG, 
                 metavar="character"),
+    optparse::make_option(c("-e", "--emendas"), 
+                          type="character", 
+                          default=.INPUT_FILEPATH,
+                          help=.HELP_INPUT_ARG, 
+                          metavar="character"),
     optparse::make_option(c("-o", "--output"), 
                 type="character", 
                 default=.OUTPUT_FILEPATH,
                 help=.HELP_OUTPUT_ARG, 
-                metavar="character")
+                metavar="character"),
+    optparse::make_option(c("-a", "--avulsos_iniciais"), 
+                          type="character", 
+                          default=.OUTPUT_FILEPATH,
+                          help=.HELP_OUTPUT_ARG, 
+                          metavar="character")
   );
   
   opt_parser <- optparse::OptionParser(option_list = option_list) 
@@ -46,9 +56,18 @@ source(here::here("R/process_data.R"))
 args <- get_args()
 
 print("Fetching data...")
-df <- fetch_data(args$input)
+textos_proposicao_df <- fetch_textos_proposicao(args$input) 
+emendas_df <- textos_proposicao_df %>% 
+  filter(str_detect(tolower(tipo_texto), "emenda")) %>% 
+  filter(tolower(tipo_texto) != "avulso de emendas")
+textos_iniciais_materia_df <- textos_proposicao_df %>% 
+  filter(str_detect(tolower(tipo_texto), "apresenta..o de proposi..o|avulso inicial da mat.ria"))
 
 print("Saving results...")
-save_data(df, args$output)
+emendas_raw <- readr::read_csv(args$emendas)
+save_new_emendas(emendas_df, emendas_raw, args$output)
+
+readr::write_csv(textos_iniciais_materia_df, args$avulsos_iniciais)
+
 
 print("Successfully saved! :D")
