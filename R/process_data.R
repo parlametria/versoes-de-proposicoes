@@ -8,22 +8,15 @@ library(dplyr)
 #' @param senado_id Proposition's ID from Senado
 #' @examples 
 #' fetch_propositions_versions(46249, 41703)
-fetch_propositions_versions <- function(camara_id, senado_id) {
+fetch_propositions_versions <- function(id, casa) {
   
-  print(paste0("Processando dados da proposição com id na câmara ", camara_id, " e no senado ", senado_id))
+  print(paste0("Processando dados da proposição com id ", id))
   
-  if(!is.na(camara_id) & !is.na(senado_id)) {
-    df <-
-      agoradigital::extract_links_proposicao(id = camara_id, 
-                                             casa = .CAMARA) %>%
-      dplyr::bind_rows(agoradigital::extract_links_proposicao(id = senado_id,
-                                                   casa = .SENADO))
-    
-  } else if (!is.na(camara_id)) {
-    df <- agoradigital::extract_links_proposicao(id = camara_id, casa = .CAMARA)
+  if (casa == .CAMARA) {
+    df <- agoradigital::extract_links_proposicao(id = id, casa = .CAMARA)
     
   } else {
-    df <- agoradigital::extract_links_proposicao(id = senado_id, casa = .SENADO)
+    df <- agoradigital::extract_links_proposicao(id = id, casa = .SENADO)
   }
   
   return(df %>%
@@ -36,12 +29,11 @@ fetch_propositions_versions <- function(camara_id, senado_id) {
 #' @param input_filepath Input filepath
 #' @examples
 #' fetch_textos_proposicao("data/tabela_geral_ids_casa.csv")
-fetch_textos_proposicao <- function(input_filepath) {
-  propositions <- readr::read_csv(input_filepath, col_types = "iicc")
-  df <- suppressMessages(suppressWarnings(
-    purrr::map2_df(.x = propositions$id_camara,
-                   .y = propositions$id_senado,
-                   ~ fetch_propositions_versions(.x, .y))))
+fetch_textos_proposicao <- function(new_emendas_df) {
+  df <- 
+    purrr::map2_df(.x = new_emendas_df$id_ext,
+                   .y = new_emendas_df$casa,
+                   ~ fetch_propositions_versions(.x, .y))
 }
 
 #' @title Save dataframe
