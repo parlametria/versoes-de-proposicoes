@@ -26,13 +26,13 @@ fetch_propositions_versions <- function(id, casa) {
 
 #' @title Fetch data for all propositions
 #' @description Fetch data for all propositions in Senado and Camara
-#' @param input_filepath Input filepath
+#' @param props_df Dataframe with propositions whose texts will be fetched
 #' @examples
 #' fetch_textos_proposicao("data/tabela_geral_ids_casa.csv")
-fetch_textos_proposicao <- function(new_emendas_df) {
+fetch_textos_proposicao <- function(props_df) {
   df <- 
-    purrr::map2_df(.x = new_emendas_df$id_ext,
-                   .y = new_emendas_df$casa,
+    purrr::map2_df(.x = props_df$id_ext,
+                   .y = props_df$casa,
                    ~ fetch_propositions_versions(.x, .y))
 }
 

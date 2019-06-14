@@ -13,16 +13,21 @@ get_args <- function() {
   args = commandArgs(trailingOnly=TRUE)
   
   option_list = list(
+    optparse::make_option(c("-o", "--old_emendas"), 
+                          type="character", 
+                          default=.OLD_EMENDAS_FILEPATH,
+                          help=.HELP_INPUT_ARG, 
+                          metavar="character"),
     optparse::make_option(c("-e", "--emendas"), 
                           type="character", 
                           default=.EMENDAS_FILEPATH,
                           help=.HELP_INPUT_ARG, 
                           metavar="character"),
-    optparse::make_option(c("-o", "--output"), 
-                type="character", 
-                default=.OUTPUT_FILEPATH,
-                help=.HELP_OUTPUT_ARG, 
-                metavar="character"),
+    optparse::make_option(c("-n", "--novas_emendas"), 
+                          type="character", 
+                          default=.NEW_EMENDAS_FILEPATH,
+                          help=.HELP_OUTPUT_ARG, 
+                          metavar="character"),
     optparse::make_option(c("-a", "--avulsos_iniciais"), 
                           type="character", 
                           default=.AVULSOS_FILEPATH,
@@ -59,6 +64,7 @@ load_packages(list_of_packages)
 source(here::here("R/process_data.R"))
 
 args <- get_args()
+print(args)
 
 emendas_raw_new <- readr::read_csv(args$emendas,
                                col_types =   readr::cols(
@@ -75,7 +81,7 @@ emendas_raw_new <- readr::read_csv(args$emendas,
 if (args$flag == 1) {
   print("Fetching data...")
   emendas_raw_old <- 
-    readr::read_csv("data/emendas_raw_old.csv",
+    readr::read_csv(args$old_emendas,
                     col_types = readr::cols(
                       id_ext = readr::col_double(),
                       codigo_emenda = readr::col_double(),
@@ -90,7 +96,8 @@ if (args$flag == 1) {
     )
   new_emendas <- dplyr::anti_join(emendas_raw_new, emendas_raw_old, by = c("id_ext", "casa"))
   
-  textos_proposicao_df <- fetch_textos_proposicao(new_emendas) 
+  new_emendas_props <- new_emendas %>% dplyr::distinct(id_ext, casa)
+  textos_proposicao_df <- fetch_textos_proposicao(new_emendas_props) 
   readr::write_csv(textos_proposicao_df, args$textos)
 }else {
   textos_proposicao_df <- 
@@ -116,7 +123,7 @@ textos_iniciais_materia_df <- textos_proposicao_df %>%
   filter(str_detect(tolower(tipo_texto), "apresenta..o de proposi..o|avulso inicial da mat.ria"))
 
 print("Saving results...")
-readr::write_csv(emendas_raw_new, args$output)
+readr::write_csv(emendas_raw_new, args$novas_emendas)
 readr::write_csv(textos_iniciais_materia_df, args$avulsos_iniciais)
 
 
