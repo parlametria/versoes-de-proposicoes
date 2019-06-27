@@ -94,7 +94,7 @@ if (args$flag == 1) {
                       inteiro_teor = readr::col_character()
                     )
     )
-  new_emendas <- dplyr::anti_join(emendas_raw_current, emendas_raw_old, by = c("id_ext", "casa"))
+  new_emendas <- dplyr::anti_join(emendas_raw_current, emendas_raw_old, by = c("codigo_emenda", "casa"))
   
   new_emendas_props <- new_emendas %>% dplyr::distinct(id_ext, casa)
   textos_proposicao_df <- fetch_textos_proposicao(new_emendas_props) 
