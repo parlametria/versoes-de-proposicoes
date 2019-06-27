@@ -117,7 +117,7 @@ if (args$flag == 1) {
 
 new_names <- c("id_proposicao", "codigo_texto", "data", "numero", "local", "autor", "casa", "tipo_texto", "link_inteiro_teor")
 names(emendas_raw_new) <- new_names
-emendas_raw_new <- textos_proposicao_df %>% 
+emendas_raw_new <- emendas_raw_new %>% 
   filter(str_detect(tolower(tipo_texto), "^e")) 
 textos_iniciais_materia_df <- textos_proposicao_df %>% 
   filter(str_detect(tolower(tipo_texto), "apresenta..o de proposi..o|avulso inicial da mat.ria"))
