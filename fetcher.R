@@ -66,7 +66,7 @@ source(here::here("R/process_data.R"))
 args <- get_args()
 print(args)
 
-emendas_raw_new <- readr::read_csv(args$emendas,
+emendas_raw_current <- readr::read_csv(args$emendas,
                                col_types =   readr::cols(
                                  id_ext = readr::col_double(),
                                  codigo_emenda = readr::col_double(),
@@ -94,7 +94,7 @@ if (args$flag == 1) {
                       inteiro_teor = readr::col_character()
                     )
     )
-  new_emendas <- dplyr::anti_join(emendas_raw_new, emendas_raw_old, by = c("id_ext", "casa"))
+  new_emendas <- dplyr::anti_join(emendas_raw_current, emendas_raw_old, by = c("id_ext", "casa"))
   
   new_emendas_props <- new_emendas %>% dplyr::distinct(id_ext, casa)
   textos_proposicao_df <- fetch_textos_proposicao(new_emendas_props) 
@@ -115,15 +115,15 @@ if (args$flag == 1) {
                     ))
 }
 
-new_names <- c("id_proposicao", "codigo_texto", "data", "numero", "local", "autor", "casa", "tipo_texto", "link_inteiro_teor")
-names(emendas_raw_new) <- new_names
-emendas_raw_new <- emendas_raw_new %>% 
+new_emendas_df <- 
+  textos_proposicao_df %>% 
   filter(str_detect(tolower(tipo_texto), "^e")) 
-textos_iniciais_materia_df <- textos_proposicao_df %>% 
+textos_iniciais_materia_df <-
+  textos_proposicao_df %>% 
   filter(str_detect(tolower(tipo_texto), "apresenta..o de proposi..o|avulso inicial da mat.ria"))
 
 print("Saving results...")
-readr::write_csv(emendas_raw_new, args$novas_emendas)
+readr::write_csv(new_emendas_df, args$novas_emendas)
 readr::write_csv(textos_iniciais_materia_df, args$avulsos_iniciais)
 
 
