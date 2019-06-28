@@ -21,7 +21,8 @@ fetch_propositions_versions <- function(id, casa) {
   
   return(df %>%
            dplyr::arrange(data) %>% 
-           dplyr::filter(!is.na(tipo_texto)))
+           dplyr::filter(!is.na(tipo_texto)) %>%
+           dplyr::mutate_all(~ as.character(.)))
 }
 
 #' @title Fetch data for all propositions
