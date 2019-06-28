@@ -1,0 +1,20 @@
+# Compose used for production
+
+version: '3.5'
+
+services:
+  versoes_props:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+      cache_from:
+        - agoradigital/versoes_props
+    image: agoradigital/versoes_props
+    container_name: versoes_props
+    volumes:
+      - proposicoes_data:/versoes_props/data
+
+volumes:
+  proposicoes_data:
+    external:
+      name: back_proposicoes_data
