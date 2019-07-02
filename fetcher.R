@@ -42,7 +42,12 @@ get_args <- function() {
                           type="integer", 
                           default=.FLAG,
                           help=.HELP_OUTPUT_ARG, 
-                          metavar="integer")
+                          metavar="integer"),
+    optparse::make_option(c("-d", "--data_dir_path"), 
+                          type="character", 
+                          default=.DATA_DIR_FILEPATH,
+                          help=.HELP_OUTPUT_ARG, 
+                          metavar="character")
   );
   
   opt_parser <- optparse::OptionParser(option_list = option_list) 
@@ -65,6 +70,13 @@ source(here::here("R/process_data.R"))
 
 args <- get_args()
 print(args)
+
+print("Removing old files...")
+unlink(c(paste0(args$data_dir_path, "/documentos"),
+         paste0(args$data_dir_path, "/documentos_sem_justificacoes"),
+         paste0(args$data_dir_path, "/novas_emendas.csv"),
+         paste0(args$data_dir_path, "/avulsos_iniciais.csv"),
+         paste0(args$data_dir_path, "/textos.csv")), recursive = TRUE)
 
 emendas_raw_current <- readr::read_csv(args$emendas,
                                col_types =   readr::cols(
@@ -125,6 +137,5 @@ textos_iniciais_materia_df <-
 print("Saving results...")
 readr::write_csv(new_emendas_df, args$novas_emendas)
 readr::write_csv(textos_iniciais_materia_df, args$avulsos_iniciais)
-
 
 print("Successfully saved! :D")
