@@ -37,7 +37,7 @@ fetch_textos_proposicao <- function(props_df) {
   df <- 
     purrr::map2_df(.x = props_df$id_ext,
                    .y = props_df$casa,
-                   ~ safe_fetch_propositions_versions(.x, .y))
+                   ~ safe_fetch_propositions_versions(.x, .y)$result)
 }
 
 #' @title Save dataframe
