@@ -26,7 +26,8 @@ fetch_propositions_versions <- function(id, casa) {
 
 safe_fetch_propositions_versions <- purrr::safely(
   fetch_propositions_versions,
-  otherwise = tibble::tribble(~ id_proposicao, ~ casa, ~ codigo_texto, ~ data, ~ tipo_texto, ~ descricao,  ~ link_inteiro_teor, ~ pagina_inicial))
+  otherwise = tibble::tribble(~ id_proposicao, ~ casa, ~ codigo_texto, ~ data, ~ tipo_texto, ~ descricao,  ~ link_inteiro_teor, ~ pagina_inicial),
+  quiet = FALSE)
 
 #' @title Fetch data for all propositions
 #' @description Fetch data for all propositions in Senado and Camara
