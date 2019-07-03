@@ -66,6 +66,11 @@ source(here::here("R/process_data.R"))
 args <- get_args()
 print(args)
 
+print("Removing old files...")
+unlink(c(args$novas_emendas,
+         args$avulsos_iniciais,
+         args$textos), recursive = TRUE)
+
 emendas_raw_current <- readr::read_csv(args$emendas,
                                col_types =   readr::cols(
                                  id_ext = readr::col_double(),
@@ -125,6 +130,5 @@ textos_iniciais_materia_df <-
 print("Saving results...")
 readr::write_csv(new_emendas_df, args$novas_emendas)
 readr::write_csv(textos_iniciais_materia_df, args$avulsos_iniciais)
-
 
 print("Successfully saved! :D")
