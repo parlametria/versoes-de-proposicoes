@@ -12,9 +12,12 @@ services:
     image: agoradigital/versoes_props
     container_name: versoes_props
     volumes:
-      - proposicoes_data:/versoes_props/data
+      - leggo_data:/versoes_props/data
+      - leggo_content_data:/versoes_props/leggo_content_data
 
 volumes:
-  proposicoes_data:
+  leggo_data:
     external:
-      name: back_proposicoes_data
+      name: leggo_data
+  leggo_content_data:
+    name: leggo_content_data
