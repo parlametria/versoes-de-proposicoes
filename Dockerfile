@@ -1,6 +1,6 @@
 FROM rocker/tidyverse
 
-RUN mkdir /versoes_props
 WORKDIR /versoes_props
-COPY . .
+COPY utils ./utils
 RUN Rscript utils/installer.R
+COPY . .
